@@ -21,4 +21,5 @@ Code:
 * 32 models: 4 genetic diversity metrics x 2 candidate drivers x 4 buffer sizes.
 
 4.SpatialAutocorr_Check.R
+* Calculates distance matrix.
 * Tests for spatial autocorrelation in model residuals.
