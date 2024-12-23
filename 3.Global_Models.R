@@ -52,6 +52,16 @@ m_het_impacts50 <- bf(scale(gene_diversity) ~ scale(impacts50km) +
 m_het_impacts25 <- bf(scale(gene_diversity) ~ scale(impacts25km) + 
                                     (scale(impacts25km)|species))
 
+#Fishing Pressure Models
+m_het_fishing200 <- bf(scale(gene_diversity) ~ scale(fishing_effort200km) + 
+                         (scale(fishing_effort200km)|species))
+m_het_fishing100 <- bf(scale(gene_diversity) ~ scale(fishing_effort100km) + 
+                         (scale(fishing_effort100km)|species))
+m_het_fishing50 <- bf(scale(gene_diversity) ~ scale(fishing_effort50km) + 
+                        (scale(fishing_effort50km)|species))
+m_het_fishing25 <- bf(scale(gene_diversity) ~ scale(fishing_effort25km) + 
+                        (scale(fishing_effort25km)|species))
+
 # Run Human Population Density Models
 MH_humanpopdens200 <-brmfun(m_het_humanpopdens200, fishy.he) 
 print(summary(MH_humanpopdens200)) 
@@ -134,6 +144,48 @@ pp_check(MH_huimpacts25, ndraws = 500)
 saveRDS(MH_huimpacts25, "brms_models_nopriors/MH_huimpacts25.rds") 
 MH_huimpacts25 <- readRDS("brms_models_nopriors/MH_huimpacts25.rds")
 
+# Run Fishing Pressure Models
+MH_fishing200 <-brmfun(m_het_fishing200, fishy.he) 
+print(summary(MH_fishing200))
+plot(MH_fishing200)
+p_direction(MH_fishing200) # Probability of Direction
+bayes_R2(MH_fishing200) # Bayesian R2
+waic(MH_fishing200) # waic
+pp_check(MH_fishing200, ndraws = 500) 
+saveRDS(MH_fishing200, "brms_models_nopriors/MH_fishing200.rds") 
+MH_fishing200<- readRDS("brms_models_nopriors/MH_fishing200.rds")
+
+MH_fishing100 <-brm(m_het_fishing100, cores = 4, chains = 4, iter = 7000, warmup = 3500, control = list(adapt_delta = 0.9999, max_treedepth = 15),
+                    data = fishy.he) 
+print(summary(MH_fishing100))
+plot(MH_fishing100)
+p_direction(MH_fishing100) # Probability of Direction
+bayes_R2(MH_fishing100) # Bayesian R2
+waic(MH_fishing100) # waic
+pp_check(MH_fishing100, ndraws = 500) 
+saveRDS(MH_fishing100, "brms_models_nopriors/MH_fishing100.rds") 
+MH_fishing100<- readRDS("brms_models_nopriors/MH_fishing100.rds")
+
+MH_fishing50 <-brmfun(m_het_fishing50, fishy.he) 
+print(summary(MH_fishing50))
+plot(MH_fishing50)
+p_direction(MH_fishing50) # Probability of Direction
+bayes_R2(MH_fishing50) # Bayesian R2
+waic(MH_fishing50) # waic
+pp_check(MH_fishing50, ndraws = 500) 
+saveRDS(MH_fishing50, "brms_models_nopriors/MH_fishing50.rds") 
+MH_fishing50<- readRDS("brms_models_nopriors/MH_fishing50.rds")
+
+MH_fishing25 <-brmfun(m_het_fishing25, fishy.he) 
+print(summary(MH_fishing25))
+plot(MH_fishing25)
+p_direction(MH_fishing25) # Probability of Direction
+bayes_R2(MH_fishing25) # Bayesian R2
+waic(MH_fishing25) # waic
+pp_check(MH_fishing25, ndraws = 500) 
+saveRDS(MH_fishing25, "brms_models_nopriors/MH_fishing25.rds") 
+MH_fishing25<- readRDS("brms_models_nopriors/MH_fishing25.rds")
+
 #### Allelic Richness ####
 
 # Human Population Density Models
@@ -155,6 +207,16 @@ m_alri_impacts50 <- bf(scale(allelic_richness) ~ scale(impacts50km)
                                     + (scale(impacts50km)|species))
 m_alri_impacts25 <- bf(scale(allelic_richness) ~ scale(impacts25km)
                                     + (scale(impacts25km)|species))
+
+#Fishing Pressure Models
+m_alri_fishing200 <- bf(scale(allelic_richness) ~ scale(fishing_effort200km)  
+                        + (scale(fishing_effort200km)|species))
+m_alri_fishing100 <- bf(scale(allelic_richness) ~ scale(fishing_effort100km) 
+                        + (scale(fishing_effort100km)|species))
+m_alri_fishing50 <- bf(scale(allelic_richness) ~ scale(fishing_effort50km)   
+                       + (scale(fishing_effort50km)|species))
+m_alri_fishing25 <- bf(scale(allelic_richness) ~ scale(fishing_effort25km)  
+                       + (scale(fishing_effort25km)|species))
 
 # Run Human Population Density Models
 MAR_humanpopdens200 <-brmfun(m_alri_humanpopdens200, fishy.alri) 
@@ -238,7 +300,48 @@ pp_check(MAR_huimpacts25, ndraws = 500)
 saveRDS(MAR_huimpacts25, "brms_models_nopriors/MAR_huimpacts25.rds") 
 MAR_huimpacts25<- readRDS("brms_models_nopriors/MAR_huimpacts25.rds")
 
-#### FST ####
+# Run Fishing Pressure Models
+MAR_fishing200 <-brmfun(m_alri_fishing200, fishy.alri) 
+print(summary(MAR_fishing200))
+plot(MAR_fishing200)
+p_direction(MAR_fishing200) # Probability of Direction
+bayes_R2(MAR_fishing200) # Bayesian R2
+waic(MAR_fishing200) # waic
+pp_check(MAR_fishing200, ndraws = 500)
+saveRDS(MAR_fishing200, "brms_models_nopriors/MAR_fishing200.rds") 
+MAR_fishing200<- readRDS("brms_models_nopriors/MAR_fishing200.rds")
+
+MAR_fishing100 <-brmfun(m_alri_fishing100, fishy.alri) 
+print(summary(MAR_fishing100)) 
+plot(MAR_fishing100)
+p_direction(MAR_fishing100) # Probability of Direction
+bayes_R2(MAR_fishing100) # Bayesian R2
+waic(MAR_fishing100) # waic
+pp_check(MAR_fishing100, ndraws = 500)
+saveRDS(MAR_fishing100, "brms_models_nopriors/MAR_fishing100.rds") 
+MAR_fishing100<- readRDS("brms_models_nopriors/MAR_fishing100.rds")
+
+MAR_fishing50 <-brmfun(m_alri_fishing50, fishy.alri) 
+print(summary(MAR_fishing50))
+plot(MAR_fishing50)
+p_direction(MAR_fishing50) # Probability of Direction
+bayes_R2(MAR_fishing50) # Bayesian R2
+waic(MAR_fishing50) # waic
+pp_check(MAR_fishing50, ndraws = 500)
+saveRDS(MAR_fishing50, "brms_models_nopriors/MAR_fishing50.rds") 
+MAR_fishing50<- readRDS("brms_models_nopriors/MAR_fishing50.rds")
+
+MAR_fishing25 <-brmfun(m_alri_fishing25, fishy.alri) 
+print(summary(MAR_fishing25))
+plot(MAR_fishing25)
+p_direction(MAR_fishing25) # Probability of Direction
+bayes_R2(MAR_fishing25) # Bayesian R2
+waic(MAR_fishing25) # waic
+pp_check(MAR_fishing25, ndraws = 500)
+saveRDS(MAR_fishing25, "brms_models_nopriors/MAR_fishing25.rds") 
+MAR_fishing25<- readRDS("brms_models_nopriors/MAR_fishing25.rds")
+
+#### Fst ####
 
 # Human Population Density Models
 m_fst_humanpopdens200 <- bf(scale(global_fst) ~ scale(hupopdens200km) + (scale(hupopdens200km)|species))
@@ -251,6 +354,16 @@ m_fst_impacts200 <- bf(scale(global_fst) ~ scale(impacts200km) + (scale(impacts2
 m_fst_impacts100 <- bf(scale(global_fst) ~ scale(impacts100km) + (scale(impacts100km)|species))
 m_fst_impacts50 <- bf(scale(global_fst) ~ scale(impacts50km) + (scale(impacts50km)|species))
 m_fst_impacts25 <- bf(scale(global_fst) ~ scale(impacts25km) + (scale(impacts25km)|species))
+
+#Fishing Pressure Models
+m_fst_fishing200 <- bf(scale(global_fst) ~ scale(fishing_effort200km) 
+                       + (scale(fishing_effort200km)|species))
+m_fst_fishing100 <- bf(scale(global_fst) ~ scale(fishing_effort100km) 
+                       + (scale(fishing_effort100km)|species))
+m_fst_fishing50 <- bf(scale(global_fst) ~ scale(fishing_effort50km)
+                      + (scale(fishing_effort50km)|species))
+m_fst_fishing25 <- bf(scale(global_fst) ~ scale(fishing_effort25km)
+                      + (scale(fishing_effort25km)|species))
 
 # Run Human Population Density Models
 MFST_humanpopdens200 <-brmfun(m_fst_humanpopdens200, fishy.fst)  
@@ -334,6 +447,48 @@ pp_check(MFST_huimpacts25, ndraws = 500)
 saveRDS(MFST_huimpacts25, "brms_models_nopriors/MFST_huimpacts25.rds") 
 MFST_huimpacts25<- readRDS("brms_models_nopriors/MFST_huimpacts25.rds")
 
+# Run Fishing Pressure Models
+MFST_fishing200 <-brm(m_fst_fishing200, cores = 4, chains = 4, iter = 9000, warmup = 4500, control = list(adapt_delta = 0.9999, max_treedepth = 15),
+                      data = fishy.fst) 
+print(summary(MFST_fishing200))
+plot(MFST_fishing200)
+p_direction(MFST_fishing200) # Probability of Direction
+bayes_R2(MFST_fishing200) # Bayesian R2
+waic(MFST_fishing200) # waic
+pp_check(MFST_fishing200, ndraws = 500)
+saveRDS(MFST_fishing200, "brms_models_nopriors/MFST_fishing200.rds") 
+MFST_fishing200<- readRDS("brms_models_nopriors/MFST_fishing200.rds")
+
+MFST_fishing100 <-brmfun(m_fst_fishing100, fishy.fst) 
+print(summary(MFST_fishing100)) 
+plot(MFST_fishing100)
+p_direction(MFST_fishing100) # Probability of Direction
+bayes_R2(MFST_fishing100) # Bayesian R2
+waic(MFST_fishing100) # waic
+pp_check(MFST_fishing100, ndraws = 500)
+saveRDS(MFST_fishing100, "brms_models_nopriors/MFST_fishing100.rds") 
+MFST_fishing100<- readRDS("brms_models_nopriors/MFST_fishing100.rds")
+
+MFST_fishing50 <-brmfun(m_fst_fishing50, fishy.fst) 
+print(summary(MFST_fishing50))
+plot(MFST_fishing50)
+p_direction(MFST_fishing50) # Probability of Direction
+bayes_R2(MFST_fishing50) # Bayesian R2
+waic(MFST_fishing50) # waic
+pp_check(MFST_fishing50, ndraws = 500)
+saveRDS(MFST_fishing50, "brms_models_nopriors/MFST_fishing50.rds") 
+MFST_fishing50<- readRDS("brms_models_nopriors/MFST_fishing50.rds")
+
+MFST_fishing25 <-brmfun(m_fst_fishing25, fishy.fst) 
+print(summary(MFST_fishing25))
+plot(MFST_fishing25)
+p_direction(MFST_fishing25) # Probability of Direction
+bayes_R2(MFST_fishing25) # Bayesian R2
+waic(MFST_fishing25) # waic
+pp_check(MFST_fishing25, ndraws = 500)
+saveRDS(MFST_fishing25, "brms_models_nopriors/MFST_fishing25.rds") 
+MFST_fishing25<- readRDS("brms_models_nopriors/MFST_fishing25.rds")
+
 #### Ne ####
 
 # Human Population Density Models
@@ -347,6 +502,12 @@ m_ne_impacts200 <- bf(scale(Ne) ~ scale(impacts200km) + (scale(impacts200km)|spe
 m_ne_impacts100 <- bf(scale(Ne) ~ scale(impacts100km) + (scale(impacts100km)|species))
 m_ne_impacts50 <- bf(scale(Ne) ~ scale(impacts50km) + (scale(impacts50km)|species))
 m_ne_impacts25 <- bf(scale(Ne) ~ scale(impacts25km) + (scale(impacts25km)|species))
+
+#Fishing Pressure Models
+m_ne_fishing200 <- bf(scale(Ne) ~ scale(fishing_effort200km) + (scale(fishing_effort200km)|species))
+m_ne_fishing100 <- bf(scale(Ne) ~ scale(fishing_effort100km) + (scale(fishing_effort100km)|species))
+m_ne_fishing50 <- bf(scale(Ne) ~ scale(fishing_effort50km) + (scale(fishing_effort50km)|species))
+m_ne_fishing25 <- bf(scale(Ne) ~ scale(fishing_effort25km) + (scale(fishing_effort25km)|species))
 
 # Run Human Population density Models
 MNE_humanpopdens200 <-brmfun(m_ne_humanpopdens200, fishy.ne) 
@@ -430,7 +591,50 @@ pp_check(MNE_huimpacts25, ndraws = 500)
 saveRDS(MNE_huimpacts25, "brms_models_nopriors/MNE_huimpacts25.rds") 
 MNE_huimpacts25 <- readRDS("brms_models_nopriors/MNE_huimpacts25.rds")
 
-### Models with Priors ###
+# Run Fishing Pressure Models
+MNE_fishing200 <-brm(m_ne_fishing200, cores = 4, chains = 4, iter = 7000, warmup = 3500, control = list(adapt_delta = 0.9999, max_treedepth = 15),
+                     data = fishy.ne) 
+print(summary(MNE_fishing200))
+plot(MNE_fishing200)
+p_direction(MNE_fishing200) # Probability of Direction
+bayes_R2(MNE_fishing200) # Bayesian R2
+waic(MNE_fishing200) # waic
+pp_check(MNE_fishing200, ndraws = 500)
+saveRDS(MNE_fishing200, "brms_models_nopriors/MNE_fishing200.rds") 
+MNE_fishing200 <- readRDS("brms_models_nopriors/MNE_fishing200.rds")
+
+MNE_fishing100 <-brm(m_ne_fishing100, cores = 4, chains = 4, iter = 7000, warmup = 3500, control = list(adapt_delta = 0.9999, max_treedepth = 15),
+                     data = fishy.ne) 
+print(summary(MNE_fishing100)) 
+plot(MNE_fishing100)
+p_direction(MNE_fishing100) # Probability of Direction
+bayes_R2(MNE_fishing100) # Bayesian R2
+waic(MNE_fishing100) # waic
+pp_check(MNE_fishing100, ndraws = 500)
+saveRDS(MNE_fishing100, "brms_models_nopriors/MNE_fishing100.rds") 
+MNE_fishing100 <- readRDS("brms_models_nopriors/MNE_fishing100.rds")
+
+MNE_fishing50 <-brmfun(m_ne_fishing50, fishy.ne) 
+print(summary(MNE_fishing50))
+plot(MNE_fishing50)
+p_direction(MNE_fishing50) # Probability of Direction
+bayes_R2(MNE_fishing50) # Bayesian R2
+waic(MNE_fishing50) # waic
+pp_check(MNE_fishing50, ndraws = 500)
+saveRDS(MNE_fishing50, "brms_models_nopriors/MNE_fishing50.rds") 
+MNE_fishing50 <- readRDS("brms_models_nopriors/MNE_fishing50.rds")
+
+MNE_fishing25 <-brmfun(m_ne_fishing25, fishy.ne) 
+print(summary(MNE_fishing25))
+plot(MNE_fishing25)
+p_direction(MNE_fishing25) # Probability of Direction
+bayes_R2(MNE_fishing25) # Bayesian R2
+waic(MNE_fishing25) # waic
+pp_check(MNE_fishing25, ndraws = 500)
+saveRDS(MNE_fishing25, "brms_models_nopriors/MNE_fishing25.rds") 
+MNE_fishing25 <- readRDS("brms_models_nopriors/MNE_fishing25.rds")
+
+### Models With Priors ###
 
 #### Heterozygosity with priors ####
 
@@ -540,6 +744,59 @@ waic(p.MH_huimpacts25) # waic
 saveRDS(p.MH_huimpacts25, "brms_models/p.MH_huimpacts25.rds")
 p.MH_huimpacts25 <- readRDS("brms_models/p.MH_huimpacts25.rds")
 
+# Run Fishing Pressure Models
+p.MH_fishing200 <-brm(m_het_fishing200, cores = 4, chains = 4, iter = 4000, warmup = 2000,
+                      prior = prior(normal(0,1), class = b, coef = scalefishing_effort200km),
+                      control = list(adapt_delta = 0.95, max_treedepth = 10), 
+                      data =fishy.he) 
+print(summary(p.MH_fishing200))
+plot(p.MH_fishing200)
+pp_check(p.MH_fishing200, ndraws = 500)
+p_direction(p.MH_fishing200) # Probability of Direction
+bayes_R2(p.MH_fishing200) # Bayesian R2
+waic(p.MH_fishing200) # waic
+saveRDS(p.MH_fishing200, "brms_models/p.MH_fishing200.rds")
+p.MH_fishing200 <- readRDS("brms_models/p.MH_fishing200.rds")
+
+p.MH_fishing100 <-brm(m_het_fishing100, cores = 4, chains = 4, iter = 6000, warmup = 3000,
+                      prior = prior(normal(0,1), class = b, coef = scalefishing_effort100km),
+                      control = list(adapt_delta = 0.9999, max_treedepth = 12), 
+                      data =fishy.he)  
+print(summary(p.MH_fishing100))
+plot(p.MH_fishing100)
+p_direction(p.MH_fishing100) # Probability of Direction
+pp_check(p.MH_fishing100, ndraws = 500)
+bayes_R2(p.MH_fishing100) # Bayesian R2
+waic(p.MH_fishing100) # waic
+saveRDS(p.MH_fishing100, "brms_models/p.MH_fishing100.rds")
+p.MH_fishing100 <- readRDS("brms_models/p.MH_fishing100.rds")
+
+p.MH_fishing50 <-brm(m_het_fishing50, cores = 4, chains = 4, iter = 4000, warmup = 2000,
+                     prior = prior(normal(0,1), class = b, coef = scalefishing_effort50km),
+                     control = list(adapt_delta = 0.99, max_treedepth = 10), 
+                     data =fishy.he)
+print(summary(p.MH_fishing50))
+plot(p.MH_fishing50)
+p_direction(p.MH_fishing50) # Probability of Direction 
+pp_check(p.MH_fishing50, ndraws = 500)
+bayes_R2(p.MH_fishing50) # Bayesian R2
+waic(p.MH_fishing50) # waic
+saveRDS(p.MH_fishing50, "brms_models/p.MH_fishing50.rds")
+p.MH_fishing50 <- readRDS("brms_models/p.MH_fishing50.rds")
+
+p.MH_fishing25 <-brm(m_het_fishing25, cores = 4, chains = 4, iter = 4000, warmup = 2000,
+                     prior = prior(normal(0,1), class = b, coef = scalefishing_effort25km),
+                     control = list(adapt_delta = 0.95, max_treedepth = 10), 
+                     data =fishy.he) 
+print(summary(p.MH_fishing25))
+plot(p.MH_fishing25)
+p_direction(p.MH_fishing25) # Probability of Direction
+pp_check(p.MH_fishing25, ndraws = 500)
+bayes_R2(p.MH_fishing25) # Bayesian R2
+waic(p.MH_fishing25) # waic
+saveRDS(p.MH_fishing25, "brms_models/p.MH_fishing25.rds")
+p.MH_fishing25 <- readRDS("brms_models/p.MH_fishing25.rds")
+
 #### Allelic Richness with priors ####
 
 # Run Human Population Density Models
@@ -648,7 +905,60 @@ waic(p.MAR_huimpacts25) # waic
 saveRDS(p.MAR_huimpacts25, "brms_models/p.MAR_huimpacts25.rds")
 p.MAR_huimpacts25<- readRDS("brms_models/p.MAR_huimpacts25.rds")
 
-#### FST with priors ####
+# Run Fishing Pressure Models
+p.MAR_fishing200 <-brm(m_alri_fishing200, cores = 4, chains = 4, iter = 6000, warmup = 3000, 
+                       prior = prior(normal(0,1), class = b, coef = scalefishing_effort200km),
+                       control = list(adapt_delta = 0.95, max_treedepth = 10), 
+                       data =fishy.alri) 
+print(summary(p.MAR_fishing200))
+plot(p.MAR_fishing200)
+p_direction(p.MAR_fishing200) # Probability of Direction
+pp_check(p.MAR_fishing200, ndraws = 500)
+bayes_R2(p.MAR_fishing200) # Bayesian R2
+waic(p.MAR_fishing200) # waic
+saveRDS(p.MAR_fishing200, "brms_models/p.MAR_fishing200.rds")
+p.MAR_fishing200<- readRDS("brms_models/p.MAR_fishing200.rds")
+
+p.MAR_fishing100 <-brm(m_alri_fishing100, cores = 4, chains = 4, iter = 4000, warmup = 2000,
+                       prior = prior(normal(0,1), class = b, coef = scalefishing_effort100km),
+                       control = list(adapt_delta = 0.95, max_treedepth = 10), 
+                       data =fishy.alri) 
+print(summary(p.MAR_fishing100)) 
+plot(p.MAR_fishing100)
+p_direction(p.MAR_fishing100) # Probability of Direction
+pp_check(p.MAR_fishing100, ndraws = 500)
+bayes_R2(p.MAR_fishing100) # Bayesian R2
+waic(p.MAR_fishing100) # waic
+saveRDS(p.MAR_fishing100, "brms_models/p.MAR_fishing100.rds")
+p.MAR_fishing100<- readRDS("brms_models/p.MAR_fishing100.rds")
+
+p.MAR_fishing50 <-brm(m_alri_fishing50, cores = 4, chains = 4, iter = 4000, warmup = 2000,
+                      prior = prior(normal(0,1), class = b, coef = scalefishing_effort50km),
+                      control = list(adapt_delta = 0.95, max_treedepth = 10), 
+                      data =fishy.alri) 
+print(summary(p.MAR_fishing50))
+plot(p.MAR_fishing50)
+p_direction(p.MAR_fishing50) # Probability of Direction
+pp_check(p.MAR_fishing50, ndraws = 500)
+bayes_R2(p.MAR_fishing50) # Bayesian R2
+waic(p.MAR_fishing50) # waic
+saveRDS(p.MAR_fishing50, "brms_models/p.MAR_fishing50.rds")
+p.MAR_fishing50<- readRDS("brms_models/p.MAR_fishing50.rds")
+
+p.MAR_fishing25 <-brm(m_alri_fishing25, cores = 4, chains = 4, iter = 4000, warmup = 2000,
+                      prior = prior(normal(0,1), class = b, coef = scalefishing_effort25km),
+                      control = list(adapt_delta = 0.99, max_treedepth = 10), 
+                      data =fishy.alri) 
+print(summary(p.MAR_fishing25))
+plot(p.MAR_fishing25)
+p_direction(p.MAR_fishing25) # Probability of Direction
+pp_check(p.MAR_fishing25, ndraws = 500)
+bayes_R2(p.MAR_fishing25) # Bayesian R2
+waic(p.MAR_fishing25) # waic
+saveRDS(p.MAR_fishing25, "brms_models/p.MAR_fishing25.rds")
+p.MAR_fishing25<- readRDS("brms_models/p.MAR_fishing25.rds")
+
+#### Fst with priors ####
 
 # Run Human Population Density Models
 p.MFST_humanpopdens200 <-brm(m_fst_humanpopdens200, cores = 4, chains = 4, iter = 2000, warmup = 1000,
@@ -755,6 +1065,59 @@ bayes_R2(p.MFST_huimpacts25) # Bayesian R2
 waic(p.MFST_huimpacts25) # waic
 saveRDS(p.MFST_huimpacts25, "brms_models/p.MFST_huimpacts25.rds")
 p.MFST_huimpacts25 <- readRDS("brms_models/p.MFST_huimpacts25.rds")
+
+# Run Fishing Pressure Models
+p.MFST_fishing200 <-brm(m_fst_fishing200, cores = 4, chains = 4, iter = 4000, warmup = 2000, 
+                        prior = prior(normal(0,1), class = b, coef = scalefishing_effort200km),
+                        control = list(adapt_delta = 0.99, max_treedepth = 10), 
+                        data =fishy.fst) 
+print(summary(p.MFST_fishing200))
+plot(p.MFST_fishing200)
+p_direction(p.MFST_fishing200) # Probability of Direction
+pp_check(p.MFST_fishing200, ndraws = 500)
+bayes_R2(p.MFST_fishing200) # Bayesian R2
+waic(p.MFST_fishing200) # waic
+saveRDS(p.MFST_fishing200, "brms_models/p.MFST_fishing200.rds")
+p.MFST_fishing200<- readRDS("brms_models/p.MFST_fishing200.rds")
+
+p.MFST_fishing100 <-brm(m_fst_fishing100, cores = 4, chains = 4, iter = 4000, warmup = 2000, 
+                        prior = prior(normal(0,1), class = b, coef = scalefishing_effort100km),
+                        control = list(adapt_delta = 0.95, max_treedepth = 10), 
+                        data =fishy.fst) # EFFECT: -0.06/0.09
+print(summary(p.MFST_fishing100)) 
+plot(p.MFST_fishing100)
+p_direction(p.MFST_fishing100) # Probability of Direction: 66.00%
+pp_check(p.MFST_fishing100, ndraws = 500)
+bayes_R2(p.MFST_fishing100) # Bayesian R2
+waic(p.MFST_fishing100) # waic
+saveRDS(p.MFST_fishing100, "brms_models/p.MFST_fishing100.rds")
+p.MFST_fishing100<- readRDS("brms_models/p.MFST_fishing100.rds")
+
+p.MFST_fishing50 <-brm(m_fst_fishing50, cores = 4, chains = 4, iter = 2000, warmup = 1000, 
+                       prior = prior(normal(0,1), class = b, coef = scalefishing_effort50km),
+                       control = list(adapt_delta = 0.95, max_treedepth = 10), 
+                       data =fishy.fst) 
+print(summary(p.MFST_fishing50))
+plot(p.MFST_fishing50)
+p_direction(p.MFST_fishing50) # Probability of Direction
+pp_check(p.MFST_fishing50, ndraws = 500)
+bayes_R2(p.MFST_fishing50) # Bayesian R2
+waic(p.MFST_fishing50) # waic
+saveRDS(p.MFST_fishing50, "brms_models/p.MFST_fishing50.rds")
+p.MFST_fishing50<- readRDS("brms_models/p.MFST_fishing50.rds")
+
+p.MFST_fishing25 <-brm(m_fst_fishing25, cores = 4, chains = 4, iter = 4000, warmup = 2000, 
+                       prior = prior(normal(0,1), class = b, coef = scalefishing_effort25km),
+                       control = list(adapt_delta = 0.99, max_treedepth = 12), 
+                       data =fishy.fst) 
+print(summary(p.MFST_fishing25))
+plot(p.MFST_fishing25)
+p_direction(p.MFST_fishing25) # Probability of Direction
+pp_check(p.MFST_fishing25, ndraws = 500)
+bayes_R2(p.MFST_fishing25) # Bayesian R2
+waic(p.MFST_fishing25) # waic
+saveRDS(p.MFST_fishing25, "brms_models/p.MFST_fishing25.rds")
+p.MFST_fishing25<- readRDS("brms_models/p.MFST_fishing25.rds")
 
 ### Ne with priors ###
 
@@ -863,3 +1226,56 @@ bayes_R2(p.MNE_huimpacts25) # Bayesian R2
 waic(p.MNE_huimpacts50) # waic
 saveRDS(p.MNE_huimpacts25, "brms_models/p.MNE_huimpacts25.rds")
 p.MNE_huimpacts25 <- readRDS("brms_models/p.MNE_huimpacts25.rds")
+
+# Run Fishing Pressure Models
+p.MNE_fishing200 <-brm(m_ne_fishing200, cores = 4, chains = 4, iter = 4000, warmup = 2000,
+                       prior = prior(normal(0,1), class = b, coef = scalefishing_effort200km),
+                       control = list(adapt_delta = 0.99, max_treedepth = 10), 
+                       data = fishy.ne) 
+print(summary(p.MNE_fishing200))
+plot(p.MNE_fishing200)
+p_direction(p.MNE_fishing200) # Probability of Direction
+pp_check(p.MNE_fishing200, ndraws = 500)
+bayes_R2(p.MNE_fishing200) # Bayesian R2
+waic(p.MNE_fishing200) # waic
+saveRDS(p.MNE_fishing200, "brms_models/p.MNE_fishing200.rds")
+p.MNE_fishing200<- readRDS("brms_models/p.MNE_fishing200.rds")
+
+p.MNE_fishing100 <-brm(m_ne_fishing100, cores = 4, chains = 4, iter = 2000, warmup = 1000,
+                       prior = prior(normal(0,1), class = b, coef = scalefishing_effort100km),
+                       control = list(adapt_delta = 0.95, max_treedepth = 10), 
+                       data = fishy.ne) 
+print(summary(p.MNE_fishing100)) 
+plot(p.MNE_fishing100)
+p_direction(p.MNE_fishing100) # Probability of Direction
+pp_check(p.MNE_fishing100, ndraws = 500)
+bayes_R2(p.MNE_fishing100) # Bayesian R2
+waic(p.MNE_fishing100) # waic
+saveRDS(p.MNE_fishing100, "brms_models/p.MNE_fishing100.rds")
+p.MNE_fishing100<- readRDS("brms_models/p.MNE_fishing100.rds")
+
+p.MNE_fishing50 <-brm(m_ne_fishing50, cores = 4, chains = 4, iter = 2000, warmup = 1000,
+                      prior = prior(normal(0,1), class = b, coef = scalefishing_effort50km),
+                      control = list(adapt_delta = 0.99, max_treedepth = 10), 
+                      data = fishy.ne) 
+print(summary(p.MNE_fishing50))
+plot(p.MNE_fishing50)
+p_direction(p.MNE_fishing50) # Probability of Direction
+pp_check(p.MNE_fishing50, ndraws = 500)
+bayes_R2(p.MNE_fishing50) # Bayesian R2
+waic(p.MNE_fishing50) # waic
+saveRDS(p.MNE_fishing50, "brms_models/p.MNE_fishing50.rds")
+p.MNE_fishing50<- readRDS("brms_models/p.MNE_fishing50.rds")
+
+p.MNE_fishing25 <-brm(m_ne_fishing25, cores = 4, chains = 4, iter = 2000, warmup = 1000,
+                      prior = prior(normal(0,1), class = b, coef = scalefishing_effort25km),
+                      control = list(adapt_delta = 0.99, max_treedepth = 10), 
+                      data = fishy.ne) 
+print(summary(p.MNE_fishing25))
+plot(p.MNE_fishing25)
+p_direction(p.MNE_fishing25) # Probability of Direction
+pp_check(p.MNE_fishing25, ndraws = 500)
+bayes_R2(p.MNE_fishing25) # Bayesian R2
+waic(p.MNE_fishing25) # waic
+saveRDS(p.MNE_fishing25, "brms_models/p.MNE_fishing25.rds")
+p.MNE_fishing25<- readRDS("brms_models/p.MNE_fishing25.rds")
