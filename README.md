@@ -13,12 +13,12 @@ Code:
 * Raw genetic data not provided.
 
 2.Drivers_Extraction.R
-* Extracts, re-projects urbanization metrics (human population density, cumulative human impacts) and merges with previously calculated genetic diverity metrics.
+* Extracts, re-projects urbanization metrics (human population density, cumulative human impacts and fishing pressure) and merges with previously calculated genetic diverity metrics.
 * Creates final dataset.
 
 3.Global_Models.R
 * Bayesian generalized linear mixed effects models.
-* 32 models: 4 genetic diversity metrics x 2 candidate drivers x 4 buffer sizes.
+* 48 models: 4 genetic diversity metrics x 3 candidate drivers x 4 buffer sizes.
 
 4.SpatialAutocorr_Check.R
 * Calculates distance matrix.
