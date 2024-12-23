@@ -120,6 +120,35 @@ moran.test(res.MH_huimpacts50, dist_lw) # no, I = -4.699615e-03
 res.MH_huimpacts25 <- residuals(MH_huimpacts25)[,1]
 moran.test(res.MH_huimpacts25, dist_lw) # no, I = -4.750789e-03
 
+# Fishing Pressure
+res.MH_fishing200 <- residuals(MH_fishing200)[,1]
+# removing rows from distance matrix because NAs in data
+om_fishing200 <-which(is.na(fishy.he$fishing_effort200km), arr.ind=TRUE)
+dist_m_fishing200 <- dist_m[-(om_fishing200),-(om_fishing200)]
+dist_lw_fishing200 <- mat2listw(dist_m_fishing200)
+moran.test(res.MH_fishing200, dist_lw_fishing200) # no, I = -2.745815e-03
+
+res.MH_fishing100 <- residuals(MH_fishing100)[,1]
+# removing rows from distance matrix because NAs in data
+om_fishing100 <-which(is.na(fishy.he$fishing_effort100km), arr.ind=TRUE)
+dist_m_fishing100 <- dist_m[-(om_fishing100),-(om_fishing100)]
+dist_lw_fishing100 <- mat2listw(dist_m_fishing100)
+moran.test(res.MH_fishing100, dist_lw_fishing100) # no, I = -3.547316e-03
+
+res.MH_fishing50 <- residuals(MH_fishing50)[,1]
+# removing rows from distance matrix because NAs in data
+om_fishing50 <-which(is.na(fishy.he$fishing_effort50km), arr.ind=TRUE)
+dist_m_fishing50 <- dist_m[-(om_fishing50),-(om_fishing50)]
+dist_lw_fishing50 <- mat2listw(dist_m_fishing50)
+moran.test(res.MH_fishing50, dist_lw_fishing50) # no, I = -4.341077e-03
+
+res.MH_fishing25 <- residuals(MH_fishing25)[,1]
+# removing rows from distance matrix because NAs in data
+om_fishing25 <-which(is.na(fishy.he$fishing_effort25km), arr.ind=TRUE)
+dist_m_fishing25 <- dist_m[-(om_fishing25),-(om_fishing25)]
+dist_lw_fishing25 <- mat2listw(dist_m_fishing25)
+moran.test(res.MH_fishing25, dist_lw_fishing25) # no, I = -3.851053e-03
+
 # Allelic Richness Models No Priors #
 
 # Human Population Density
@@ -148,7 +177,20 @@ moran.test(res.MAR_huimpacts50, dist_lw) # no, I = -4.569538e-03
 res.MAR_huimpacts25 <- residuals(MAR_huimpacts25)[,1]
 moran.test(res.MAR_huimpacts25, dist_lw) # no, I = -4.697962e-03
 
-# FST Models No Priors #
+# Fishing Pressure
+res.MAR_fishing200 <- residuals(MAR_fishing200)[,1]
+moran.test(res.MAR_fishing200, dist_lw_fishing200) # no, I = -2.803954e-03
+
+res.MAR_fishing100 <- residuals(MAR_fishing100)[,1]
+moran.test(res.MAR_fishing100, dist_lw_fishing100) # no, I = -3.786989e-03
+
+res.MAR_fishing50 <- residuals(MAR_fishing50)[,1]
+moran.test(res.MAR_fishing50, dist_lw_fishing50) # no, I = -4.736018e-03
+
+res.MAR_fishing25 <- residuals(MAR_fishing25)[,1]
+moran.test(res.MAR_fishing25, dist_lw_fishing25) # no, I = -2.622460e-03
+
+# Fst Models No Priors #
 
 # Human Population Density
 res.MFST_humanpopdens200 <- residuals(MFST_humanpopdens200)[,1]
@@ -191,6 +233,35 @@ moran.test(res.MFST_huimpacts50, dist_lw1) # no, I = -1.087225e-03
 
 res.MFST_huimpacts25 <- residuals(MFST_huimpacts25)[,1]
 moran.test(res.MFST_huimpacts25, dist_lw1) # no, I = -1.097912e-03
+
+# Fishing Pressure
+res.MFST_fishing200 <- residuals(MFST_fishing200)[,1]
+# removing rows from distance matrix because NAs in data
+om1_fishing200 <-which(is.na(fishy.fst$fishing_effort200km), arr.ind=TRUE)
+dist_m1_fishing200 <- dist_m1[-(om1_fishing200),-(om1_fishing200)]
+dist_lw1_fishing200 <- mat2listw(dist_m1_fishing200)
+moran.test(res.MFST_fishing200, dist_lw1_fishing200) # no, I = -1.348302e-03
+
+res.MFST_fishing100 <- residuals(MFST_fishing100)[,1]
+# removing rows from distance matrix because NAs in data
+om1_fishing100 <-which(is.na(fishy.fst$fishing_effort100km), arr.ind=TRUE)
+dist_m1_fishing100 <- dist_m1[-(om1_fishing100),-(om1_fishing100)]
+dist_lw1_fishing100 <- mat2listw(dist_m1_fishing100)
+moran.test(res.MFST_fishing100, dist_lw1_fishing100) # no, I = -1.463013e-03 
+
+res.MFST_fishing50 <- residuals(MFST_fishing50)[,1]
+# removing rows from distance matrix because NAs in data
+om1_fishing50 <-which(is.na(fishy.fst$fishing_effort50km), arr.ind=TRUE)
+dist_m1_fishing50 <- dist_m1[-(om1_fishing50),-(om1_fishing50)]
+dist_lw1_fishing50 <- mat2listw(dist_m1_fishing50)
+moran.test(res.MFST_fishing50, dist_lw1_fishing50) # no, I = -1.262671e-03
+
+res.MFST_fishing25 <- residuals(MFST_fishing25)[,1]
+# removing rows from distance matrix because NAs in data
+om1_fishing25 <-which(is.na(fishy.fst$fishing_effort25km), arr.ind=TRUE)
+dist_m1_fishing25 <- dist_m1[-(om1_fishing25),-(om1_fishing25)]
+dist_lw1_fishing25 <- mat2listw(dist_m1_fishing25)
+moran.test(res.MFST_fishing25, dist_lw1_fishing25) # no, I = -8.844649e-04   
 
 # Ne Models No Priors #
  
@@ -236,6 +307,35 @@ moran.test(res.MNE_huimpacts50, dist_lw2) # no, I = -7.826578e-04
 res.MNE_huimpacts25 <- residuals(MNE_huimpacts25)[,1]
 moran.test(res.MNE_huimpacts25, dist_lw2) # no, I = -7.688647e-04
 
+# Fishing Pressure
+res.MNE_fishing200 <- residuals(MNE_fishing200)[,1]
+# removing rows from distance matrix because NAs in data
+om2_fishing200 <-which(is.na(fishy.ne$fishing_effort200km), arr.ind=TRUE)
+dist_m2_fishing200 <- dist_m2[-(om2_fishing200),-(om2_fishing200)]
+dist_lw2_fishing200 <- mat2listw(dist_m2_fishing200)
+moran.test(res.MNE_fishing200, dist_lw2_fishing200) # no, I = -7.165941e-04
+
+res.MNE_fishing100 <- residuals(MNE_fishing100)[,1]
+# removing rows from distance matrix because NAs in data
+om2_fishing100 <-which(is.na(fishy.ne$fishing_effort100km), arr.ind=TRUE)
+dist_m2_fishing100 <- dist_m2[-(om2_fishing100),-(om2_fishing100)]
+dist_lw2_fishing100 <- mat2listw(dist_m2_fishing100)
+moran.test(res.MNE_fishing100, dist_lw2_fishing100) # no, I = -9.006004e-04
+
+res.MNE_fishing50 <- residuals(MNE_fishing50)[,1]
+# removing rows from distance matrix because NAs in data
+om2_fishing50 <-which(is.na(fishy.ne$fishing_effort50km), arr.ind=TRUE)
+dist_m2_fishing50 <- dist_m2[-(om2_fishing50),-(om2_fishing50)]
+dist_lw2_fishing50 <- mat2listw(dist_m2_fishing50)
+moran.test(res.MNE_fishing50, dist_lw2_fishing50) # no, I = -7.982125e-04 
+
+res.MNE_fishing25 <- residuals(MNE_fishing25)[,1]
+# removing rows from distance matrix because NAs in data
+om2_fishing25 <-which(is.na(fishy.ne$fishing_effort25km), arr.ind=TRUE)
+dist_m2_fishing25 <- dist_m2[-(om2_fishing25),-(om2_fishing25)]
+dist_lw2_fishing25 <- mat2listw(dist_m2_fishing25)
+moran.test(res.MNE_fishing25, dist_lw2_fishing25) # no, I = -9.803402e-04
+
 # Gene Diversity Models With Priors #
 
 # Human Population Density
@@ -263,6 +363,19 @@ moran.test(res.p.MH_huimpacts50, dist_lw) # no, I = -4.698327e-03
 
 res.p.MH_huimpacts25 <- residuals(p.MH_huimpacts25)[,1]
 moran.test(res.p.MH_huimpacts25, dist_lw) # no, I = -4.747372e-03
+
+# Fishing Pressure
+res.p.MH_fishing200 <- residuals(p.MH_fishing200)[,1]
+moran.test(res.p.MH_fishing200, dist_lw_fishing200) # no, I = -2.750657e-03
+
+res.p.MH_fishing100 <- residuals(p.MH_fishing100)[,1]
+moran.test(res.p.MH_fishing100, dist_lw_fishing100) # no, I = -3.553220e-03
+
+res.p.MH_fishing50 <- residuals(p.MH_fishing50)[,1]
+moran.test(res.p.MH_fishing50, dist_lw_fishing50) # no, I = -4.342385e-03
+
+res.p.MH_fishing25 <- residuals(p.MH_fishing25)[,1]
+moran.test(res.p.MH_fishing25, dist_lw_fishing25) # no, I = -3.835716e-03
 
 # Allelic Richness Models With Priors #
 
@@ -292,7 +405,20 @@ moran.test(res.p.MAR_huimpacts50, dist_lw) # no, I =  -4.578625e-03
 res.p.MAR_huimpacts25 <- residuals(p.MAR_huimpacts25)[,1]
 moran.test(res.p.MAR_huimpacts25, dist_lw) # no, I = -4.710108e-03  
 
-# FST Models With Priors #
+# Fishing Pressure
+res.p.MAR_fishing200 <- residuals(p.MAR_fishing200)[,1]
+moran.test(res.p.MAR_fishing200, dist_lw_fishing200) # no, I = -2.795537e-03
+
+res.p.MAR_fishing100 <- residuals(p.MAR_fishing100)[,1]
+moran.test(res.p.MAR_fishing100, dist_lw_fishing100) # no, I = -3.777509e-03 
+
+res.p.MAR_fishing50 <- residuals(p.MAR_fishing50)[,1]
+moran.test(res.p.MAR_fishing50, dist_lw_fishing50) # no, I =  -4.739269e-03 
+
+res.p.MAR_fishing25 <- residuals(p.MAR_fishing25)[,1]
+moran.test(res.p.MAR_fishing25, dist_lw_fishing25) # no, I = -2.627844e-03 
+
+# Fst Models With Priors #
 
 # Human Population Density
 res.p.MFST_humanpopdens200 <- residuals(p.MFST_humanpopdens200)[,1]
@@ -319,6 +445,19 @@ moran.test(res.p.MFST_huimpacts50, dist_lw1) # no, I = -1.095671e-03
 
 res.p.MFST_huimpacts25 <- residuals(p.MFST_huimpacts25)[,1]
 moran.test(res.p.MFST_huimpacts25, dist_lw1) # no, I = -1.103003e-03
+
+# Fishing Pressure
+res.p.MFST_fishing200 <- residuals(p.MFST_fishing200)[,1]
+moran.test(res.p.MFST_fishing200, dist_lw1_fishing200) # no, I =  -1.337828e-03 
+
+res.p.MFST_fishing100 <- residuals(p.MFST_fishing100)[,1]
+moran.test(res.p.MFST_fishing100, dist_lw1_fishing100) # no, I = -1.464328e-03
+
+res.p.MFST_fishing50 <- residuals(p.MFST_fishing50)[,1]
+moran.test(res.p.MFST_fishing50, dist_lw1_fishing50) # no, I = -1.274324e-03
+
+res.p.MFST_fishing25 <- residuals(p.MFST_fishing25)[,1]
+moran.test(res.p.MFST_fishing25, dist_lw1_fishing25) # no, I = -8.880658e-04   
 
 # Ne Models With Priors #
 
@@ -348,3 +487,15 @@ moran.test(res.p.MNE_huimpacts50, dist_lw2) # no, I = -7.724543e-04
 res.p.MNE_huimpacts25 <- residuals(p.MNE_huimpacts25)[,1]
 moran.test(res.p.MNE_huimpacts25, dist_lw2) # no, I = -7.624826e-04
 
+# Fishing Pressure
+res.p.MNE_fishing200 <- residuals(p.MNE_fishing200)[,1]
+moran.test(res.p.MNE_fishing200, dist_lw2_fishing200) # no, I = -7.291080e-04
+
+res.p.MNE_fishing100 <- residuals(p.MNE_fishing100)[,1]
+moran.test(res.p.MNE_fishing100, dist_lw2_fishing100) # no, I = -9.035198e-04
+
+res.p.MNE_fishing50 <- residuals(p.MNE_fishing50)[,1]
+moran.test(res.p.MNE_fishing50, dist_lw2_fishing50) # no, I = -8.001986e-04
+
+res.p.MNE_fishing25 <- residuals(p.MNE_fishing25)[,1]
+moran.test(res.p.MNE_fishing25, dist_lw2_fishing25) # no, I = -1.052656e-03
