@@ -102,10 +102,49 @@ d_hupopdens.CI200 <- cbind(d_hupopdens.CI100, ext8[,2])
 names(d_hupopdens.CI200)[ncol(d_hupopdens.CI200)] <- "impacts200km"
 d_hupopdens.CI200 <- as.data.frame(d_hupopdens.CI200)
 
+## Kroodsma et al. 2016 ##
+## DOI: 10.1126/science.aao5646
+
+# Fishing pressure (hours of fishing per km2) 25km buffer
+raw_fishing_data <- "fishing_raster_05_20180228.tif"
+fishing_data<- raster(raw_fishing_data)
+fishing_data
+projection(fishing_data) #check CRS
+st_crs(fishing_data) # CRS already in format we want
+plot(fishing_data)
+ext9 <- extract(fishing_data,d,fun=mean,buffer=25000, na.rm=TRUE, df=TRUE) 
+ext9
+d_hupopdens.CI.fishing25 <- cbind(d_hupopdens.CI200, ext9[,2])
+names(d_hupopdens.CI.fishing25)[ncol(d_hupopdens.CI.fishing25)] <- "fishing_effort25km"
+d_hupopdens.CI.fishing25 <- as.data.frame(d_hupopdens.CI.fishing25)
+
+# Fishing pressure (hours of fishing per km2) 50km buffer
+ext10 <- extract(fishing_data,d,fun=mean,buffer=50000, na.rm=TRUE, df=TRUE) 
+ext10
+d_hupopdens.CI.fishing50 <- cbind(d_hupopdens.CI.fishing25, ext10[,2])
+names(d_hupopdens.CI.fishing50 )[ncol(d_hupopdens.CI.fishing50 )] <- "fishing_effort50km"
+d_hupopdens.CI.fishing50  <- as.data.frame(d_hupopdens.CI.fishing50)
+
+# Fishing pressure (hours of fishing per km2) 100km buffer
+ext11 <- extract(fishing_data,d,fun=mean,buffer=100000, na.rm=TRUE, df=TRUE) 
+ext11
+d_hupopdens.CI.fishing100 <- cbind(d_hupopdens.CI.fishing50, ext11[,2])
+names(d_hupopdens.CI.fishing100)[ncol(d_hupopdens.CI.fishing100)] <- "fishing_effort100km"
+d_hupopdens.CI.fishing100 <- as.data.frame(d_hupopdens.CI.fishing100)
+
+# Fishing pressure (hours of fishing per km2) 200km buffer
+ext12 <- extract(fishing_data,d,fun=mean,buffer=200000, na.rm=TRUE, df=TRUE) 
+ext12
+d_hupopdens.CI.fishing200 <- cbind(d_hupopdens.CI.fishing100, ext12[,2])
+names(d_hupopdens.CI.fishing200)[ncol(d_hupopdens.CI.fishing200)] <- "fishing_effort200km"
+d_hupopdens.CI.fishing200 <- as.data.frame(d_hupopdens.CI.fishing200)
+
 # Check everything is in same CRS
 st_crs(d) == st_crs(CumImp_data) 
 st_crs(CumImp_data) == st_crs(hupopdens_data) 
+st_crs(hupopdens_data) == st_crs(fishing_data) 
+st_crs(fishing_data) == st_crs(CumImp_data) 
 
 ### Final Dataset ### 
 
-write.csv(d_hupopdens.CI200, "ReProj_FinalUrbanizationdata.csv", row.names = FALSE)
+write.csv(d_hupopdens.CI.fishing200, "ReProj_FinalUrbanizationdata.csv", row.names = FALSE)
